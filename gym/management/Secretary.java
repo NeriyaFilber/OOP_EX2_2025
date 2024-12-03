@@ -1,5 +1,8 @@
 package gym.management;
 
+import gym.Exception.ClientNotRegisteredException;
+import gym.Exception.DuplicateClientException;
+import gym.Exception.InvalidAgeException;
 import gym.customers.Client;
 import gym.management.Sessions.Session;
 
@@ -11,16 +14,16 @@ public class Secretary extends Person {
         super(name, balance, gender, dateOfBirth);
     }
 
-    public Client registerClient(Person p2) {
+    public Client registerClient(Person p2) throws InvalidAgeException,DuplicateClientException {
     }
 
     public Instructor hireInstructor(Person p4, int i, ArrayList<Object> objects) {
     }
 
-    public void registerClientToLesson(Client c1, Session s1) {
+    public void registerClientToLesson(Client c1, Session s1) throws ClientNotRegisteredException, DuplicateClientException {
     }
 
-    public void unregisterClient(Client c2) {
+    public void unregisterClient(Client c2) throws ClientNotRegisteredException{
     }
 
     public void paySalaries() {
