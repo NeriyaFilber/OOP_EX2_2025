@@ -3,7 +3,7 @@ package gym.management;
 public class Gym {
     private static Gym gym = new Gym();
     private Gym(){
-        
+
     }
     public static Gym getInstance() {
         return gym;
