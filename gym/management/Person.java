@@ -10,4 +10,8 @@ public class Person {
     public Person(String name, int balance, Gender gender, String dateOfBirth){
 
     }
+
+    protected String getName() {
+        return _name;
+    }
 }

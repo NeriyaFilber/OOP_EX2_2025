@@ -2,14 +2,18 @@ package gym.management;
 
 import gym.Exception.ClientNotRegisteredException;
 import gym.Exception.DuplicateClientException;
+import gym.Exception.InstructorNotQualifiedException;
 import gym.Exception.InvalidAgeException;
 import gym.customers.Client;
+import gym.management.Sessions.ForumType;
 import gym.management.Sessions.Session;
+import gym.management.Sessions.SessionType;
 
 
 import java.util.ArrayList;
 
 public class Secretary extends Person {
+
     public Secretary(String name, int balance, Gender gender, String dateOfBirth) {
         super(name, balance, gender, dateOfBirth);
     }
@@ -39,5 +43,8 @@ public class Secretary extends Person {
     }
 
     public void notify(String s) {
+    }
+
+    public Session addSession(SessionType sessionType, String s, ForumType forumType, Instructor i2) throws InstructorNotQualifiedException {
     }
 }
