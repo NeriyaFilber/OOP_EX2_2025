@@ -58,7 +58,7 @@ Gym Secretary: ID: 1113 | Name: Maayan | Gender: Female | Birthday: 21-12-2005 |
 Gym Balance: 1010
 
 Clients Data:
-ID: 1112 | Name: Nofar | Gender: Female | Birthday: 03-07-1998 | Age: 26 | Balance: 890
+           ID: 1112 | Name: Nofar | Gender: Female | Birthday: 03-07-1998 | Age: 26 | Balance: 890
 ID: 1114 | Name: Shachar | Gender: Female | Birthday: 09-04-1958 | Age: 66 | Balance: 290
 ID: 1115 | Name: Yuval | Gender: Female | Birthday: 23-05-1976 | Age: 48 | Balance: 580
 ID: 1116 | Name: Noam | Gender: Male | Birthday: 20-12-1984 | Age: 40 | Balance: 170
