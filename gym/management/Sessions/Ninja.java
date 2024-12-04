@@ -1,6 +1,14 @@
 package gym.management.Sessions;
 
+import gym.management.Instructor;
+
 public class Ninja extends Session{
+    public static final int SESSION_COST = 150;
+    public static final int MAX_PARTICIPANT = 5;
+
+    public Ninja(String date, ForumType forumType, Instructor instructor){
+        super(date, forumType, instructor);
+    }
     /**
      * Retrieves the type of the session.
      *
@@ -8,16 +16,16 @@ public class Ninja extends Session{
      */
     @Override
     public SessionType getType() {
-        return null;
+        return SessionType.Ninja;
     }
 
     @Override
     public int getCost() {
-        return 0;
+        return SESSION_COST;
     }
 
     @Override
     public int numOfParticipant() {
-        return 0;
+        return MAX_PARTICIPANT;
     }
 }
