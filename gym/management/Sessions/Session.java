@@ -41,7 +41,7 @@ public abstract class Session {
         return this._instructor;
     }
     public boolean addParticipant(Person person){
-        if(_participant.contains(person)){
+        if(_participant.contains(person) || _participant.size() >= numOfParticipant()){
             return false;
         }
         _participant.add(person);

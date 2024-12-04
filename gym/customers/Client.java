@@ -14,5 +14,6 @@ public class Client extends Person {
     }
 
     public String getNotifications() {
+        return "";
     }
 }

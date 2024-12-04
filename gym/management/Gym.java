@@ -1,18 +1,16 @@
 package gym.management;
 
-import gym.Exception.InstructorNotQualifiedException;
-import gym.management.Sessions.ForumType;
-import gym.management.Sessions.Session;
-import gym.management.Sessions.SessionType;
-
 public class Gym {
-    private static Gym gym = new Gym();
-    private static Secretary secretary;
+    private static Gym gym;
+    private static Secretary _secretary;
     private  String _nameGym;
     private Gym(){
 
     }
     public static Gym getInstance() {
+        if (gym == null){
+            gym = new Gym();
+        }
         return gym;
     }
 
@@ -21,11 +19,11 @@ public class Gym {
     }
 
     public void setSecretary(Person p1, int i) {
-
+        _secretary = new Secretary(p1,i);
     }
 
     public Secretary getSecretary() {
-        return secretary;
+        return _secretary;
 
     }
 }

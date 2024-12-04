@@ -11,11 +11,18 @@ import gym.management.Sessions.SessionType;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Secretary extends Person {
+public class Secretary {
+    private Person _person;
+    private int _salary;
+    private ArrayList<Session> gymSessions = new ArrayList<>();
+    private ArrayList<Client> gymClients = new ArrayList<>();
+    private ArrayList<Instructor> gymInstructors = new ArrayList<>();
 
-    public Secretary(String name, int balance, Gender gender, String dateOfBirth) {
-        super(name, balance, gender, dateOfBirth);
+    public Secretary(Person person, int salary) {
+        this._person = person;
+        this._salary = salary;
     }
 
     public Client registerClient(Person p2) throws InvalidAgeException,DuplicateClientException {
