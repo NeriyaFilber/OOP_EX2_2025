@@ -19,7 +19,13 @@ public class Gym {
     }
 
     public void setSecretary(Person p1, int i) {
-        _secretary = new Secretary(p1,i);
+        if(_secretary == null) {
+            _secretary = new Secretary(p1, i);
+        }
+        Secretary secretary = new Secretary(p1,i);
+        secretary.copySecretary(_secretary);
+        _secretary.clearSecretary();
+        _secretary = secretary;
     }
 
     public Secretary getSecretary() {

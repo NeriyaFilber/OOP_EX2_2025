@@ -1,17 +1,16 @@
 package gym.management.Sessions;
 
-import gym.Exception.DuplicateClientException;
+import gym.customers.Client;
 import gym.management.Instructor;
 import gym.management.Person;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 //TODO update date in class(constructor, data member, and session date function)
 public abstract class Session {
     private ForumType _forum;
     private Instructor _instructor;
-    private ArrayList<Person> _participant = new ArrayList<>();
+    private ArrayList<Client> _participant = new ArrayList<>();
 
     public Session(String date, ForumType forumType, Instructor instructor){
         this._forum = forumType;
@@ -40,22 +39,17 @@ public abstract class Session {
     public Instructor getInstructor(){
         return this._instructor;
     }
-    public boolean addParticipant(Person person){
-        if(_participant.contains(person) || _participant.size() >= numOfParticipant()){
+    public boolean addParticipant(Client client){
+        if(_participant.contains(client) || _participant.size() >= numOfParticipant()){
             return false;
         }
-        _participant.add(person);
+        _participant.add(client);
         return true;
     }
 
     public ForumType get_forum() {
         return _forum;
     }
-
-    public Instructor get_instructor() {
-        return _instructor;
-    }
-
     public ArrayList<Person> get_participant() {
         return new ArrayList<>(_participant);
     }
