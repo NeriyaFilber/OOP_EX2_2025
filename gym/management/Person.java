@@ -18,6 +18,10 @@ public class Person {
         _COUNTER_ID++;
     }
 
+    public void set_balance(int balance) {
+        this._balance = _balance + balance;
+    }
+
     public String getName() {
         return _name;
     }
