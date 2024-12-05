@@ -32,6 +32,7 @@ public class Secretary {
         if (_gymClients.contains(tempClient)){
             throw DuplicateClientException.getInstance(false);
         }
+
         _gymClients.add(tempClient);
         _gymActions.add("Registered new client: " + tempClient.getName());
         return tempClient;
@@ -39,7 +40,16 @@ public class Secretary {
 
     public Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionTypes) {
         _gymActions.add("Hired new instructor: " + person.getName() + " with salary per hour: " + salary);
-        return new Instructor(person, salary, sessionTypes);
+        if(_gymClients.contains(new Client(person))){
+            Instructor newInstructorP = new Instructor(person,sessionTypes,salary);
+            _gymInstructors.add(newInstructorP);
+            return newInstructorP;
+        }
+        else {
+            Instructor newInstructor = new Instructor(person, salary, sessionTypes);
+            _gymInstructors.add(newInstructor);
+            return newInstructor;
+        }
     }
 
     public void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
@@ -131,6 +141,7 @@ public class Secretary {
     void logAction(String action) {
         _gymActions.add(action);
     }
+
     private boolean checkValidation(ForumType forumType, Client client){
         switch (forumType){
             case Male:
@@ -142,5 +153,58 @@ public class Secretary {
             default:
                 return false;
         }
+    }
+
+    public Person get_secretary() {
+        return _secretary;
+    }
+    public String get_role() {
+        return new String("Secretary");
+
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder("Clients Data:\n");
+        for (Client client : _gymClients) {
+            sb.append(String.format(
+                    "ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d\n",
+                    client.getID(),
+                    client.getName(),
+                    client.getGender().toString(),
+                    client.getDateOfBirth(),
+                    client.getAge(),
+                    client.getBalance()
+            ));
+        }
+        sb.append("\nEmployees Data:\n");
+        for (Instructor employee : _gymInstructors) {
+            sb.append(String.format(
+                    "ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: %s | Salary per Hour: %d | Certified Classes: %s\n",
+                    employee.getID(),
+                    employee.getName(),
+                    employee.getGender().toString(),
+                    employee.getDateOfBirth(),
+                    employee.getAge(),
+                    employee.getBalance(),
+                    employee.get_role(),
+                    employee.get_salary(),
+                    employee.getCertifiedClassesAsString()
+            ));
+        }
+        sb.append("\nSessions Data:\n");
+        for (Session session : _gymSessions) {
+            sb.append(String.format(
+                    "Session Type: %s | Date: %s | Forum: %s | Instructor: %s | Participants: %d/%d\n",
+                    session.getType(),
+                    session.getDate(),
+                    session.getForum(),
+                    session.getInstructor().getName(),
+                    session.getParticipant(),
+                    session.numOfParticipant()
+            ));
+        }
+        return sb.toString();
     }
 }

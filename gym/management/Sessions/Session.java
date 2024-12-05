@@ -70,4 +70,11 @@ public abstract class Session {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(dateStr, formatter);
     }
+
+    public Instructor get_instructor() {
+        return _instructor;
+    }
+    public int getParticipant(){
+        return _participant.size();
+    }
 }

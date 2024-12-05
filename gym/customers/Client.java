@@ -42,4 +42,8 @@ public class Client extends Person {
         Client client = (Client) o;
         return this.getID() == ((Client) o).getID();
     }
-}
+
+
+
+
+    }

@@ -6,8 +6,11 @@ public class ThaiBoxing extends Session{
     public static final int SESSION_COST = 100;
     public static final int MAX_PARTICIPANT = 20;
 
+
     public ThaiBoxing(String date, ForumType forumType, Instructor instructor){
+
         super(date, forumType, instructor);
+
     }
     /**
      * Retrieves the type of the session.
@@ -28,4 +31,6 @@ public class ThaiBoxing extends Session{
     public int numOfParticipant() {
         return MAX_PARTICIPANT;
     }
+
+
 }

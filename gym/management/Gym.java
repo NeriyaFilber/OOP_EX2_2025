@@ -1,9 +1,13 @@
 package gym.management;
 
 
+import javax.management.relation.Role;
+import java.util.ArrayList;
+
 public class Gym {
     private static Gym gym;
     private static Secretary _secretary;
+    private static int _salary;
     private  String _nameGym;
     private Gym(){
 
@@ -27,6 +31,7 @@ public class Gym {
         secretary.copySecretary(_secretary);
         _secretary.clearSecretary();
         _secretary = secretary;
+        _salary = i;
 
         secretary.logAction("A new secretary has started working at the gym: " + p1.getName());
 
@@ -36,4 +41,16 @@ public class Gym {
         return _secretary;
 
     }
+
+    @Override
+    public String toString() {
+        return "_nameGym='" + _nameGym + "\n"+
+                "Gym Secretary: ID: " + _secretary.get_secretary().getID() + " | Name: " + _secretary.get_secretary().getName() +
+                " | Gender: " + _secretary.get_secretary().getGender() + " | Birthday: " +
+                _secretary.get_secretary().getDateOfBirth() + " | Age: " +
+                _secretary.get_secretary().getAge() + " | Balance: " + _secretary.get_secretary().getBalance() +
+                " | Role: " + _secretary.get_role() + " | Salary per Month: "+
+                _salary + "\n" + "Gym Balance: " + "\n" + _secretary;
+    }
+
 }

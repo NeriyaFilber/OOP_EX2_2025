@@ -12,12 +12,28 @@ public class Instructor extends Person {
         this._certifiedClasses = new ArrayList<>(CertifiedClasses);
         this._salary = salary;
     }
+    public Instructor(Person person,ArrayList<SessionType> CertifiedClasses,int salary){
+        super(person);
+        this._certifiedClasses = new ArrayList<>(CertifiedClasses);
+        this._salary = salary;
+    }
+
 
     public ArrayList<SessionType> getCertifiedClasses() {
         return new ArrayList<>(_certifiedClasses);
+    }
+    public String getCertifiedClassesAsString() {
+        return String.join(", ", _certifiedClasses.stream().map(Enum::name).toArray(String[]::new));
     }
 
     public int get_salary() {
         return _salary;
     }
+
+    public String get_role() {
+        return new String("Instructor");
+
+    }
+
+
 }
