@@ -11,10 +11,12 @@ public abstract class Session {
     private ForumType _forum;
     private Instructor _instructor;
     private ArrayList<Client> _participant = new ArrayList<>();
+    private String _date;
 
     public Session(String date, ForumType forumType, Instructor instructor){
         this._forum = forumType;
         this._instructor = instructor;
+        this._date = date;
     }
     /**
      * Retrieves the type of the session.
@@ -49,6 +51,10 @@ public abstract class Session {
 
     public ForumType get_forum() {
         return _forum;
+    }
+
+    public String getDate() {
+        return _date;
     }
 
     public ArrayList<Person> get_participant() {

@@ -53,7 +53,7 @@ public class Secretary {
             client.set_balance(-session.getCost());
             _gymBalance += session.getCost();
         }
-        _gymActions.add("Registered client: " + client.getName() + " to session: " + session + " on " +   )
+        _gymActions.add("Registered client: " + client.getName() + " to session: " + session + " on " +   session.getDate());
     }
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException{
@@ -115,5 +115,15 @@ public class Secretary {
     public LocalDateTime stringToLocalDateTime(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(dateStr, formatter);
+    }
+    private boolean checkValidation(ForumType forumType, Client client){
+        switch (forumType){
+            case Male:
+                return client.getGender() == Gender.Male;
+            case Female:
+                return client.getGender() == Gender.Female;
+            case Seniors:
+                return client.getAge()
+        }
     }
 }
