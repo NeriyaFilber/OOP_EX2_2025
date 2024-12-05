@@ -8,6 +8,8 @@ import gym.management.Sessions.SessionFactory;
 import gym.management.Sessions.SessionType;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Secretary {
@@ -17,7 +19,7 @@ public class Secretary {
     private ArrayList<Session> _gymSessions = new ArrayList<>();
     private ArrayList<Client> _gymClients = new ArrayList<>();
     private ArrayList<Instructor> _gymInstructors = new ArrayList<>();
-    private ArrayList<String> _gymActions =new ArrayList<>();
+   private ArrayList<String> _gymActions =new ArrayList<>();
 
     public Secretary(Person person, int salary) {
         this._secretary = person;
@@ -51,6 +53,7 @@ public class Secretary {
             client.set_balance(-session.getCost());
             _gymBalance += session.getCost();
         }
+        _gymActions.add("Registered client: " + client.getName() + " to session: " + session + " on " +   )
     }
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException{
@@ -68,6 +71,7 @@ public class Secretary {
             _gymSessions.get(i).getInstructor().set_balance(_gymSessions.get(i).getInstructor().get_salary());
             _gymBalance -= _gymSessions.get(i).getInstructor().get_salary();
         }
+        _gymActions.add("Salaries have been paid to all employees");
     }
 
     public void printActions() {
@@ -80,6 +84,7 @@ public class Secretary {
     }
 
     public void notify(String s) {
+
     }
 
     public Session addSession(SessionType sessionType, String s, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
@@ -88,7 +93,7 @@ public class Secretary {
         }
         Session session = SessionFactory.createSession(sessionType,s,forumType,instructor);
         _gymSessions.add(session);
-        _gymActions.add("Created new session: " + sessionType + " on " + " with instructor: "+ instructor.getName());//TODO add date
+        _gymActions.add("Created new session: " + sessionType + " on " + stringToLocalDateTime(s) + " with instructor: "+ instructor.getName());//TODO add date
         return session;
     }
     public void copySecretary(Secretary secretary){
@@ -105,5 +110,10 @@ public class Secretary {
         this._gymSessions = null;
         this._gymBalance = 0;
         this._gymClients = null;
+    }
+
+    public LocalDateTime stringToLocalDateTime(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return LocalDateTime.parse(dateStr, formatter);
     }
 }

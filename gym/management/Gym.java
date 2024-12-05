@@ -1,5 +1,6 @@
 package gym.management;
 
+
 public class Gym {
     private static Gym gym;
     private static Secretary _secretary;
@@ -26,6 +27,7 @@ public class Gym {
         secretary.copySecretary(_secretary);
         _secretary.clearSecretary();
         _secretary = secretary;
+
     }
 
     public Secretary getSecretary() {

@@ -78,7 +78,7 @@ public class Main {
         gymSecretary.registerClientToLesson(c4, s4);
         gymSecretary.registerClientToLesson(c1, s3);
         gymSecretary.registerClientToLesson(c5, s2);
-        gymSecretary.registerClientToLesson(c5, s2);
+//        gymSecretary.registerClientToLesson(c5, s2);
 
         gymSecretary.registerClientToLesson(c1, s5);
         gymSecretary.registerClientToLesson(c2, s5);

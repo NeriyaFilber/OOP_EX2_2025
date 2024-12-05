@@ -50,6 +50,7 @@ public abstract class Session {
     public ForumType get_forum() {
         return _forum;
     }
+
     public ArrayList<Person> get_participant() {
         return new ArrayList<>(_participant);
     }
