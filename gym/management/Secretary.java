@@ -53,7 +53,7 @@ public class Secretary {
             client.set_balance(-session.getCost());
             _gymBalance += session.getCost();
         }
-        _gymActions.add("Registered client: " + client.getName() + " to session: " + session + " on " +   session.getDate());
+            _gymActions.add("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getCost());
     }
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException{
@@ -75,15 +75,26 @@ public class Secretary {
     }
 
     public void printActions() {
+        for (int i = 0; i < _gymActions.size(); i++) {
+            System.out.println(_gymActions.get(i));
+        }
     }
 
     public void notify(Session s4, String s) {
+        String registered_session = new String("A message was sent to everyone registered for session ");
+        _gymActions.add(registered_session + " on " + s4.getType()+ " on " + s4.getDate() + " : "  + s );
     }
 
     public void notify(String s, String s1) {
+        String registered_session = new String("A message was sent to everyone registered for a session on ");
+        _gymActions.add(registered_session + s + s1 );
+
     }
 
     public void notify(String s) {
+        String all = new String("A message was sent to all gym clients: ");
+        _gymActions.add(all + s);
+
 
     }
 
@@ -116,6 +127,10 @@ public class Secretary {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(dateStr, formatter);
     }
+
+    void logAction(String action) {
+        _gymActions.add(action);
+    }
     private boolean checkValidation(ForumType forumType, Client client){
         switch (forumType){
             case Male:
@@ -123,7 +138,9 @@ public class Secretary {
             case Female:
                 return client.getGender() == Gender.Female;
             case Seniors:
-                return client.getAge()
+                return client.getAge() >=65;
+            default:
+                return false;
         }
     }
 }

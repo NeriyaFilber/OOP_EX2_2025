@@ -28,6 +28,8 @@ public class Gym {
         _secretary.clearSecretary();
         _secretary = secretary;
 
+        secretary.logAction("A new secretary has started working at the gym: " + p1.getName());
+
     }
 
     public Secretary getSecretary() {

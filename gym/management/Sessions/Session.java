@@ -4,6 +4,8 @@ import gym.customers.Client;
 import gym.management.Instructor;
 import gym.management.Person;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 //TODO update date in class(constructor, data member, and session date function)
@@ -16,7 +18,7 @@ public abstract class Session {
     public Session(String date, ForumType forumType, Instructor instructor){
         this._forum = forumType;
         this._instructor = instructor;
-        this._date = date;
+        this._date = String.valueOf(stringToLocalDateTime(date));
     }
     /**
      * Retrieves the type of the session.
@@ -63,4 +65,9 @@ public abstract class Session {
 
     public abstract int getCost();
     public abstract int numOfParticipant();
+
+    public LocalDateTime stringToLocalDateTime(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return LocalDateTime.parse(dateStr, formatter);
+    }
 }
