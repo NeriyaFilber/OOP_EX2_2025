@@ -22,6 +22,7 @@ public class Secretary {
     public Secretary(Person person, int salary) {
         this._secretary = person;
         this._salary = salary;
+        _gymActions.add("A new secretary has started working at the gym: " + person.getName());
     }
 
     public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
@@ -30,10 +31,12 @@ public class Secretary {
             throw DuplicateClientException.getInstance(false);
         }
         _gymClients.add(tempClient);
+        _gymActions.add("Registered new client: " + tempClient.getName());
         return tempClient;
     }
 
     public Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionTypes) {
+        _gymActions.add("Hired new instructor: " + person.getName() + " with salary per hour: " + salary);
         return new Instructor(person, salary, sessionTypes);
     }
 
@@ -55,6 +58,7 @@ public class Secretary {
             throw ClientNotRegisteredException.getInstance(false);
         }
         _gymClients.remove(client);
+        _gymActions.add("Unregistered client: " + client.getName());
     }
 
     public void paySalaries() {
@@ -84,6 +88,7 @@ public class Secretary {
         }
         Session session = SessionFactory.createSession(sessionType,s,forumType,instructor);
         _gymSessions.add(session);
+        _gymActions.add("Created new session: " + sessionType + " on " + " with instructor: "+ instructor.getName());//TODO add date
         return session;
     }
     public void copySecretary(Secretary secretary){
