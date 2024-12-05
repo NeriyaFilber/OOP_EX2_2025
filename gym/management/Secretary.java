@@ -24,10 +24,10 @@ public class Secretary {
         this._salary = salary;
     }
 
-    public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientGymException {
+    public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         Client tempClient = new Client(person);//TODO check age and throw exception
         if (_gymClients.contains(tempClient)){
-            throw DuplicateClientGymException.getInstance();
+            throw DuplicateClientException.getInstance(false);
         }
         _gymClients.add(tempClient);
         return tempClient;
@@ -37,12 +37,12 @@ public class Secretary {
         return new Instructor(person, salary, sessionTypes);
     }
 
-    public void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientGymException {
+    public void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
         if(!_gymClients.contains(client)){
-            throw ClientNotRegisteredSessionException.getInstance();
+            throw ClientNotRegisteredSessionException.getInstance(true);
         }
         if(session.get_participant().contains(client)){
-            throw DuplicateClientSessionGymException.getInstance();
+            throw DuplicateClientException.getInstance(true);
         }
         if(session.addParticipant(client)) {
             client.set_balance(-session.getCost());
@@ -52,7 +52,7 @@ public class Secretary {
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException{
         if(!_gymClients.contains(client)){
-            throw ClientNotRegisteredException.getInstance();
+            throw ClientNotRegisteredException.getInstance(false);
         }
         _gymClients.remove(client);
     }
