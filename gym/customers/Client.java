@@ -4,7 +4,6 @@ import gym.management.Gender;
 import gym.management.Person;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Client extends Person {
     private ArrayList<String> _notifications = new ArrayList<>();
@@ -43,7 +42,8 @@ public class Client extends Person {
         return this.getID() == ((Client) o).getID();
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return super.toString();
     }
+}

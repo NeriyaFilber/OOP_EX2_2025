@@ -25,7 +25,11 @@ public class Ninja extends Session{
     }
 
     @Override
-    public int numOfParticipant() {
+    public int maxNumOfParticipant() {
         return MAX_PARTICIPANT;
+    }
+    @Override
+    public String toString() {
+        return String.format("Session Type: %s | ", SessionType.Ninja) + super.toString() + "/" + MAX_PARTICIPANT;
     }
 }

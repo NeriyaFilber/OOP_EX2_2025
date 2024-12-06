@@ -31,9 +31,12 @@ public class Instructor extends Person {
     }
 
     public String get_role() {
-        return new String("Instructor");
-
+        return "Instructor";
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format("  | Role: Instructor | Salary per Month: %d | Certified Classes: %s", _salary,getCertifiedClassesAsString());
+    }
 }

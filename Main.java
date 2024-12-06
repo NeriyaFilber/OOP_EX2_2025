@@ -40,7 +40,7 @@ public class Main {
         }
         try {
             Client c9 = gymSecretary.registerClient(p4);
-        } catch (DuplicateClientException e) {//TODO fixed double exception
+        } catch (DuplicateClientException e) {
             System.out.println(e.getMessage());
         }
 
@@ -49,7 +49,7 @@ public class Main {
         try {
             gymSecretary.unregisterClient(c2);
         }
-        catch (ClientNotRegisteredException e) {//TODO fixed double exception
+        catch (ClientNotRegisteredException e) {
             System.out.println(e.getMessage());
         }
 
@@ -78,7 +78,7 @@ public class Main {
         gymSecretary.registerClientToLesson(c4, s4);
         gymSecretary.registerClientToLesson(c1, s3);
         gymSecretary.registerClientToLesson(c5, s2);
-//        gymSecretary.registerClientToLesson(c5, s2);
+        gymSecretary.registerClientToLesson(c5, s2);
 
         gymSecretary.registerClientToLesson(c1, s5);
         gymSecretary.registerClientToLesson(c2, s5);

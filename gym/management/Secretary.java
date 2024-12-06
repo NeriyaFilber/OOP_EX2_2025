@@ -8,8 +8,8 @@ import gym.management.Sessions.SessionFactory;
 import gym.management.Sessions.SessionType;
 
 
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Secretary {
@@ -24,11 +24,13 @@ public class Secretary {
     public Secretary(Person person, int salary) {
         this._secretary = person;
         this._salary = salary;
-        _gymActions.add("A new secretary has started working at the gym: " + person.getName());
     }
 
     public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
-        Client tempClient = new Client(person);//TODO check age and throw exception
+        if(person.getAge()<18){
+            throw InvalidAgeException.getInstance();
+        }
+        Client tempClient = new Client(person);
         if (_gymClients.contains(tempClient)){
             throw DuplicateClientException.getInstance(false);
         }
@@ -53,17 +55,20 @@ public class Secretary {
     }
 
     public void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
-        if(!_gymClients.contains(client)){
+        if (!_gymClients.contains(client)) {
             throw ClientNotRegisteredSessionException.getInstance(true);
         }
-        if(session.get_participant().contains(client)){
+        if (session.get_participant().contains(client)) {
             throw DuplicateClientException.getInstance(true);
         }
-        if(session.addParticipant(client)) {
-            client.set_balance(-session.getCost());
-            _gymBalance += session.getCost();
+
+        if (checkValidation(session, client)) {
+            if (session.addParticipant(client)) {
+                client.set_balance(-session.getCost());
+                _gymBalance += session.getCost();
+                _gymActions.add("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getCost());
+            }
         }
-            _gymActions.add("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getCost());
     }
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException{
@@ -71,6 +76,11 @@ public class Secretary {
             throw ClientNotRegisteredException.getInstance(false);
         }
         _gymClients.remove(client);
+        for (Session session: _gymSessions){//TODO check if client is unregister I need to unregister him from all sessions?
+            if(session.get_participant().contains(client)){
+                session.removeParticipant(client);
+            }
+        }
         _gymActions.add("Unregistered client: " + client.getName());
     }
 
@@ -114,7 +124,7 @@ public class Secretary {
         }
         Session session = SessionFactory.createSession(sessionType,s,forumType,instructor);
         _gymSessions.add(session);
-        _gymActions.add("Created new session: " + sessionType + " on " + stringToLocalDateTime(s) + " with instructor: "+ instructor.getName());//TODO add date
+        _gymActions.add("Created new session: " + sessionType + " on " + session.getDate() + " with instructor: "+ instructor.getName());//TODO add date
         return session;
     }
     public void copySecretary(Secretary secretary){
@@ -133,26 +143,48 @@ public class Secretary {
         this._gymClients = null;
     }
 
-    public LocalDateTime stringToLocalDateTime(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return LocalDateTime.parse(dateStr, formatter);
-    }
-
     void logAction(String action) {
         _gymActions.add(action);
     }
 
-    private boolean checkValidation(ForumType forumType, Client client){
-        switch (forumType){
-            case Male:
-                return client.getGender() == Gender.Male;
-            case Female:
-                return client.getGender() == Gender.Female;
-            case Seniors:
-                return client.getAge() >=65;
-            default:
-                return false;
+    private boolean checkValidation(Session session, Client client){
+        if (session.getDateAsLD().isBefore(LocalDateTime.now())) {
+            _gymActions.add("Failed registration: Session is not in the future");
+            return false;
         }
+        if (client.getBalance()< session.getCost()){
+            _gymActions.add("Failed registration: Client doesn't have enough balance");
+            return false;
+        }
+        if (session.maxNumOfParticipant() <= session.getNumOfParticipant()){
+            _gymActions.add("Failed registration: No available spots for session");
+            return false;
+        }
+        return checkValidationForum(session.getForum(), client);
+    }
+
+    private boolean checkValidationForum(ForumType forumType, Client client) {
+        if (forumType == ForumType.Seniors) {
+            if (client.getAge() >= 65) {
+                return true;
+            }
+            _gymActions.add("Failed registration: Client doesn't meet the age requirements for this session (Seniors)");
+            return false;
+        }
+        switch (forumType) {
+            case All:
+                return true;
+            case Female:
+                if (client.getGender() == Gender.Female) {
+                    return true;
+                }
+            case Male:
+                if (client.getGender() == Gender.Male) {
+                    return true;
+                }
+        }
+        _gymActions.add("Failed registration: Client's gender doesn't match the session's gender requirements");
+        return false;
     }
 
     public Person get_secretary() {
@@ -168,42 +200,15 @@ public class Secretary {
 
         StringBuilder sb = new StringBuilder("Clients Data:\n");
         for (Client client : _gymClients) {
-            sb.append(String.format(
-                    "ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d\n",
-                    client.getID(),
-                    client.getName(),
-                    client.getGender().toString(),
-                    client.getDateOfBirth(),
-                    client.getAge(),
-                    client.getBalance()
-            ));
+            sb.append(client.toString()).append("\n");
         }
         sb.append("\nEmployees Data:\n");
         for (Instructor employee : _gymInstructors) {
-            sb.append(String.format(
-                    "ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: %s | Salary per Hour: %d | Certified Classes: %s\n",
-                    employee.getID(),
-                    employee.getName(),
-                    employee.getGender().toString(),
-                    employee.getDateOfBirth(),
-                    employee.getAge(),
-                    employee.getBalance(),
-                    employee.get_role(),
-                    employee.get_salary(),
-                    employee.getCertifiedClassesAsString()
-            ));
+            sb.append(employee.toString()).append("\n");
         }
         sb.append("\nSessions Data:\n");
         for (Session session : _gymSessions) {
-            sb.append(String.format(
-                    "Session Type: %s | Date: %s | Forum: %s | Instructor: %s | Participants: %d/%d\n",
-                    session.getType(),
-                    session.getDate(),
-                    session.getForum(),
-                    session.getInstructor().getName(),
-                    session.getParticipant(),
-                    session.numOfParticipant()
-            ));
+            sb.append(session.toString()).append("\n");
         }
         return sb.toString();
     }
