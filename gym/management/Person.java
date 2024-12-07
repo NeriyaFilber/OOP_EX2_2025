@@ -3,6 +3,7 @@ package gym.management;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Person {
     private static int _COUNTER_ID = 1111;
@@ -12,6 +13,9 @@ public class Person {
     private String _dateOfBirth;
     private int _ID;
     private int _age;
+
+    protected ArrayList<String> _notifications = new ArrayList<>();
+
 
     public Person(String name, int balance, Gender gender, String dateOfBirth) {
         this._name = name;
@@ -76,6 +80,13 @@ public class Person {
                 this._age,
                 this._balance);
     }
+
+    public void addNotification(String notification) {
+        _notifications.add(notification);
+    }
+
+
+
 }
 
 

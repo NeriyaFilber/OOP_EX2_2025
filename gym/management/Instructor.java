@@ -10,6 +10,7 @@ public class Instructor extends Person {
     public Instructor(Person person, int salary, ArrayList<SessionType> CertifiedClasses) {
         super(person.getName(), person.getBalance(), person.getGender(), person.getDateOfBirth());
         this._certifiedClasses = new ArrayList<>(CertifiedClasses);
+
         this._salary = salary;
     }
     public Instructor(Person person,ArrayList<SessionType> CertifiedClasses,int salary){

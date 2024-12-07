@@ -32,6 +32,11 @@ public abstract class Session {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return _date.format(formatter);
     }
+
+    public String sessionDateYear() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return _date.format(formatter);
+    }
     /**
      * Retrieves the forum associated with the session.
      *

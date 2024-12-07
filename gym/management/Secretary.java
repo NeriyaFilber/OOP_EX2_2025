@@ -8,9 +8,10 @@ import gym.management.Sessions.SessionFactory;
 import gym.management.Sessions.SessionType;
 
 
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Secretary {
     private Person _secretary;
@@ -20,6 +21,10 @@ public class Secretary {
     private ArrayList<Client> _gymClients = new ArrayList<>();
     private ArrayList<Instructor> _gymInstructors = new ArrayList<>();
    private ArrayList<String> _gymActions =new ArrayList<>();
+
+    private ArrayList<Person> _getNotification =new ArrayList<>();
+
+
 
     public Secretary(Person person, int salary) {
         this._secretary = person;
@@ -102,18 +107,36 @@ public class Secretary {
 
     public void notify(Session s4, String s) {
         String registered_session = new String("A message was sent to everyone registered for session ");
-        _gymActions.add(registered_session + " on " + s4.getType()+ " on " + s4.getDate() + " : "  + s );
+        String message = registered_session + " on " + s4.getType()+ " on " + s4.getDate() + " : "  + s;
+        _gymActions.add(message);
+        for (Person participant : s4.get_participant()) {
+            participant.addNotification(s); // השיטה addNotification שצריכה להימצא ב- Person
+        }
     }
 
     public void notify(String s, String s1) {
-        String registered_session = new String("A message was sent to everyone registered for a session on ");
-        _gymActions.add(registered_session + s + s1 );
+        String registered_session = "A message was sent to everyone registered for a session on ";
+        String message = registered_session + s + " : " + s1;
 
+        _gymActions.add(message);
+
+
+        for (Session session : _gymSessions) {
+            if (session.sessionDateYear().equals(s)) {
+                for (Person participant : session.get_participant()) {
+                    participant.addNotification(s1);
+                }
+            }
+        }
     }
+
 
     public void notify(String s) {
         String all = new String("A message was sent to all gym clients: ");
         _gymActions.add(all + s);
+        for (Client participant : _gymClients) {
+            participant.addNotification(s);
+        }
 
 
     }
@@ -147,45 +170,117 @@ public class Secretary {
         _gymActions.add(action);
     }
 
-    private boolean checkValidation(Session session, Client client){
+    public ArrayList<Person> get_getNotification() {
+        return _getNotification;
+    }
+    private boolean checkValidation(Session session, Client client) {
+        boolean isValid = true; // Flag to track overall validity
+
+
         if (session.getDateAsLD().isBefore(LocalDateTime.now())) {
             _gymActions.add("Failed registration: Session is not in the future");
-            return false;
+            isValid = false;
         }
-        if (client.getBalance()< session.getCost()){
+
+        if (!checkValidationForum(session.getForum(), client)) {
+            isValid = false;
+        }
+
+
+        if (client.getBalance() < session.getCost()) {
             _gymActions.add("Failed registration: Client doesn't have enough balance");
-            return false;
+            isValid = false;
         }
-        if (session.maxNumOfParticipant() <= session.getNumOfParticipant()){
+
+
+        if (session.maxNumOfParticipant() <= session.getNumOfParticipant()) {
             _gymActions.add("Failed registration: No available spots for session");
-            return false;
+            isValid = false;
         }
-        return checkValidationForum(session.getForum(), client);
+
+
+
+        return isValid;
     }
 
     private boolean checkValidationForum(ForumType forumType, Client client) {
+        boolean isValid = true;
+
         if (forumType == ForumType.Seniors) {
-            if (client.getAge() >= 65) {
-                return true;
+            if (client.getAge() < 65) {
+                _gymActions.add("Failed registration: Client doesn't meet the age requirements for this session (Seniors)");
+                isValid = false;
             }
-            _gymActions.add("Failed registration: Client doesn't meet the age requirements for this session (Seniors)");
-            return false;
+        } else {
+            switch (forumType) {
+                case All:
+                    break;
+                case Female:
+                    if (client.getGender() != Gender.Female) {
+                        _gymActions.add("Failed registration: Client's gender doesn't match the session's gender requirements");
+                        isValid = false;
+                    }
+                    break;
+                case Male:
+                    if (client.getGender() != Gender.Male) {
+                        _gymActions.add("Failed registration: Client's gender doesn't match the session's gender requirements");
+                        isValid = false;
+                    }
+                    break;
+                default:
+                    _gymActions.add("Failed registration: Unknown forum type");
+                    isValid = false;
+                    break;
+            }
         }
-        switch (forumType) {
-            case All:
-                return true;
-            case Female:
-                if (client.getGender() == Gender.Female) {
-                    return true;
-                }
-            case Male:
-                if (client.getGender() == Gender.Male) {
-                    return true;
-                }
-        }
-        _gymActions.add("Failed registration: Client's gender doesn't match the session's gender requirements");
-        return false;
+
+        return isValid;
     }
+
+
+//        private boolean checkValidation(Session session, Client client){
+//        if (session.getDateAsLD().isBefore(LocalDateTime.now())) {
+//            _gymActions.add("Failed registration: Session is not in the future");
+//            return false;
+//        }
+//        if (client.getBalance()< session.getCost()){
+//            _gymActions.add("Failed registration: Client doesn't have enough balance");
+//            return false;
+//        }
+//        if (session.maxNumOfParticipant() <= session.getNumOfParticipant()){
+//            _gymActions.add("Failed registration: No available spots for session");
+//            return false;
+//        }
+//        return checkValidationForum(session.getForum(), client);
+//    }
+//
+//
+//
+//
+//
+//    private boolean checkValidationForum(ForumType forumType, Client client) {
+//        if (forumType == ForumType.Seniors) {
+//            if (client.getAge() >= 65) {
+//                return true;
+//            }
+//            _gymActions.add("Failed registration: Client doesn't meet the age requirements for this session (Seniors)");
+//            return false;
+//        }
+//        switch (forumType) {
+//            case All:
+//                return true;
+//            case Female:
+//                if (client.getGender() == Gender.Female) {
+//                    return true;
+//                }
+//            case Male:
+//                if (client.getGender() == Gender.Male) {
+//                    return true;
+//                }
+//        }
+//        _gymActions.add("Failed registration: Client's gender doesn't match the session's gender requirements");
+//        return false;
+//    }
 
     public Person get_secretary() {
         return _secretary;

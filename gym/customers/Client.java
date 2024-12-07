@@ -6,7 +6,7 @@ import gym.management.Person;
 import java.util.ArrayList;
 
 public class Client extends Person {
-    private ArrayList<String> _notifications = new ArrayList<>();
+
 
     public Client(String name, int balance, Gender gender, String dateOfBirth) {
         super(name, balance, gender, dateOfBirth);
@@ -19,6 +19,7 @@ public class Client extends Person {
     public String getName() {
         return super.getName();
     }
+
 
     public String getNotifications() {
         if (_notifications.isEmpty()) {
@@ -46,4 +47,5 @@ public class Client extends Person {
     public String toString() {
         return super.toString();
     }
+
 }
