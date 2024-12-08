@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Client extends Person {
 
+    protected ArrayList<String> _notifications = new ArrayList<>();
+
 
     public Client(String name, int balance, Gender gender, String dateOfBirth) {
         super(name, balance, gender, dateOfBirth);
@@ -47,5 +49,9 @@ public class Client extends Person {
     public String toString() {
         return super.toString();
     }
+    public void addNotification(String notification) {
+        _notifications.add(notification);
+    }
+
 
 }

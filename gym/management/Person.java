@@ -14,7 +14,7 @@ public class Person {
     private int _ID;
     private int _age;
 
-    protected ArrayList<String> _notifications = new ArrayList<>();
+
 
 
     public Person(String name, int balance, Gender gender, String dateOfBirth) {
@@ -81,9 +81,6 @@ public class Person {
                 this._balance);
     }
 
-    public void addNotification(String notification) {
-        _notifications.add(notification);
-    }
 
 
 

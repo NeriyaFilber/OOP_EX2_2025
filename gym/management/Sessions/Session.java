@@ -80,6 +80,12 @@ public abstract class Session {
         return new ArrayList<>(_participant);
     }
 
+    public ArrayList<Client> get_Client() {
+        return new ArrayList<>(_participant);
+    }
+
+
+
     public abstract int getCost();
     public abstract int maxNumOfParticipant();
 

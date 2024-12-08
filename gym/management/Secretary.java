@@ -109,8 +109,8 @@ public class Secretary {
         String registered_session = new String("A message was sent to everyone registered for session ");
         String message = registered_session + " on " + s4.getType()+ " on " + s4.getDate() + " : "  + s;
         _gymActions.add(message);
-        for (Person participant : s4.get_participant()) {
-            participant.addNotification(s); // השיטה addNotification שצריכה להימצא ב- Person
+        for (Client participant : s4.get_Client()) {
+            participant.addNotification(s); 
         }
     }
 
@@ -123,7 +123,7 @@ public class Secretary {
 
         for (Session session : _gymSessions) {
             if (session.sessionDateYear().equals(s)) {
-                for (Person participant : session.get_participant()) {
+                for (Client participant : session.get_Client()) {
                     participant.addNotification(s1);
                 }
             }
