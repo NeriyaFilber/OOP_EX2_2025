@@ -27,10 +27,12 @@ public class Gym {
         if(_secretary == null) {
             _secretary = new Secretary(p1, i);
         }
+        // כשמעבירים את המזכירה, אם היא חלק מהלקוחות צריך לשמור על היתרה שלה
         Secretary secretary = new Secretary(p1,i);
         secretary.copySecretary(_secretary);
         _secretary.clearSecretary();
         _secretary = secretary;
+        _salary = i;
         secretary.logAction("A new secretary has started working at the gym: " + p1.getName());
 
     }
@@ -39,6 +41,7 @@ public class Gym {
         return _secretary;
 
     }
+
 
     @Override
     public String toString() {

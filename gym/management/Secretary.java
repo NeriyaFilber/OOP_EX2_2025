@@ -157,7 +157,7 @@ public class Secretary {
         this._gymActions = null;
         this._gymInstructors =null;
         this._gymSessions = null;
-        this._gymBalance = 0;
+        this._gymBalance = 0 ;
         this._gymClients = null;
     }
 
@@ -301,5 +301,9 @@ public class Secretary {
             sb.append(session.toString()).append("\n");
         }
         return sb.toString();
+    }
+
+    public ArrayList<Client> getGymClients() {
+        return _gymClients;
     }
 }
