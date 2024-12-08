@@ -81,11 +81,6 @@ public class Secretary {
             throw ClientNotRegisteredException.getInstance(false);
         }
         _gymClients.remove(client);
-        for (Session session: _gymSessions){//TODO check if client is unregister I need to unregister him from all sessions?
-            if(session.get_participant().contains(client)){
-                session.removeParticipant(client);
-            }
-        }
         _gymActions.add("Unregistered client: " + client.getName());
     }
 
