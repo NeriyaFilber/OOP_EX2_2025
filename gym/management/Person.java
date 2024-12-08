@@ -37,8 +37,9 @@ public class Person {
     }
 
     public void set_balance(int balance) {
-        this._balance = _balance + balance;
+        this._balance = balance;
     }
+
 
     public String getName() {
         return _name;

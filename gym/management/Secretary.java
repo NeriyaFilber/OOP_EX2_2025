@@ -31,6 +31,8 @@ public class Secretary {
         this._salary = salary;
     }
 
+
+
     public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         if(person.getAge()<18){
             throw InvalidAgeException.getInstance();
@@ -69,7 +71,7 @@ public class Secretary {
 
         if (checkValidation(session, client)) {
             if (session.addParticipant(client)) {
-                client.set_balance(-session.getCost());
+                client.set_balance(get_secretary().getBalance()-session.getCost());
                 _gymBalance += session.getCost();
                 _gymActions.add("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getCost());
             }
@@ -85,10 +87,10 @@ public class Secretary {
     }
 
     public void paySalaries() {
-        _secretary.set_balance(_salary);
+        _secretary.set_balance(_secretary.getBalance()+_salary);
         _gymBalance-=_salary;
         for (int i = 0; i < _gymSessions.size(); i++) {
-            _gymSessions.get(i).getInstructor().set_balance(_gymSessions.get(i).getInstructor().get_salary());
+            _gymSessions.get(i).getInstructor().set_balance(_gymSessions.get(i).getInstructor().getBalance()+_gymSessions.get(i).getInstructor().get_salary());
             _gymBalance -= _gymSessions.get(i).getInstructor().get_salary();
         }
         _gymActions.add("Salaries have been paid to all employees");
@@ -306,4 +308,6 @@ public class Secretary {
     public ArrayList<Client> getGymClients() {
         return _gymClients;
     }
+
+
 }
