@@ -85,7 +85,6 @@ public abstract class Session {
     }
 
 
-
     public abstract int getCost();
     public abstract int maxNumOfParticipant();
 
