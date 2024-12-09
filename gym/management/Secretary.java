@@ -53,19 +53,26 @@ public class Secretary {
 
     public Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionTypes) {
         _gymActions.add("Hired new instructor: " + person.getName() + " with salary per hour: " + salary);
-        if(_gymClients.contains(new Client(person))){
-            Instructor newInstructorP = new Instructor(person,sessionTypes,salary);
+        // בעייה עם המעקב אחרי הכסף, הכסף לא מסונכרן לנו
+        for (Client client : _gymClients) {
+            if (_gymClients.contains(new Client(person))) {
+            Instructor newInstructorP = new Instructor(person, sessionTypes, salary);
+            int newBalance = person.getBalance() + (sessionTypes.size() * salary);
+            person.set_balance(newBalance);
+            client.set_balance(newBalance);
+
             _gymInstructors.add(newInstructorP);
             _gymAllWorker.add(newInstructorP);
+
             return newInstructorP;
-        }
-        else {
+                }
+             }
             Instructor newInstructor = new Instructor(person, salary, sessionTypes);
             _gymInstructors.add(newInstructor);
             _gymAllWorker.add(newInstructor);
             return newInstructor;
         }
-    }
+
 
     public void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
         if (!_gymClients.contains(client)) {
