@@ -32,8 +32,8 @@ public class Gym {
         secretary.copySecretary(_secretary);
         _secretary.clearSecretary();
         _secretary = secretary;
-        secretary.get_secretary().set_balance(balance);
         secretary.get_allWork(p1);
+        secretary.get_secretary().set_balance(balance);
         _salary = i;
         secretary.logAction("A new secretary has started working at the gym: " + p1.getName());
 

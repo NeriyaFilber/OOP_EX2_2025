@@ -77,7 +77,7 @@ public class Secretary {
 
         if (checkValidation(session, client)) {
             if (session.addParticipant(client)) {
-                client.set_balance(get_secretary().getBalance()-session.getCost());
+                client.set_balance(client.getBalance()-session.getCost());
                 _gymBalance += session.getCost();
                 _gymActions.add("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getCost());
             }
@@ -88,6 +88,7 @@ public class Secretary {
         if(!_gymClients.contains(client)){
             throw ClientNotRegisteredException.getInstance(false);
         }
+        // נשים לב שהיתרות נשארות אותו דבר במידה ונרשם שוב (או ניהיה מדריך.מזכירה)
         _gymClients.remove(client);
         _gymActions.add("Unregistered client: " + client.getName());
     }
