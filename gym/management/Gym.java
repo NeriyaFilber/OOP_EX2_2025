@@ -33,6 +33,7 @@ public class Gym {
         _secretary.clearSecretary();
         _secretary = secretary;
         secretary.get_secretary().set_balance(balance);
+        secretary.get_allWork(p1);
         _salary = i;
         secretary.logAction("A new secretary has started working at the gym: " + p1.getName());
 
@@ -52,7 +53,8 @@ public class Gym {
                 _secretary.get_secretary().getDateOfBirth() + " | Age: " +
                 _secretary.get_secretary().getAge() + " | Balance: " + _secretary.get_secretary().getBalance() +
                 " | Role: " + _secretary.get_role() + " | Salary per Month: "+
-                _salary + "\n" + "Gym Balance: " + "\n" + _secretary;
+                _salary + "\n" + "Gym Balance: " + _secretary.get_gymBalance() + "\n" + _secretary;
     }
+
 
 }

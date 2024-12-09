@@ -24,6 +24,10 @@ public class Secretary {
 
     private ArrayList<Person> _getNotification =new ArrayList<>();
 
+    private ArrayList<Person> _gymAllWorker =new ArrayList<>();
+
+
+
 
 
     public Secretary(Person person, int salary) {
@@ -52,11 +56,13 @@ public class Secretary {
         if(_gymClients.contains(new Client(person))){
             Instructor newInstructorP = new Instructor(person,sessionTypes,salary);
             _gymInstructors.add(newInstructorP);
+            _gymAllWorker.add(newInstructorP);
             return newInstructorP;
         }
         else {
             Instructor newInstructor = new Instructor(person, salary, sessionTypes);
             _gymInstructors.add(newInstructor);
+            _gymAllWorker.add(newInstructor);
             return newInstructor;
         }
     }
@@ -153,6 +159,8 @@ public class Secretary {
         this._gymSessions = new ArrayList<>(secretary._gymSessions);
         this._gymInstructors = new ArrayList<>(secretary._gymInstructors);
         this._gymActions = new ArrayList<>(secretary._gymActions);
+
+        this._gymAllWorker = new ArrayList<>(secretary._gymAllWorker);
     }
 
     public void clearSecretary(){
@@ -161,11 +169,15 @@ public class Secretary {
         this._gymSessions = null;
         this._gymBalance = 0 ;
         this._gymClients = null;
+
+        this._gymAllWorker = null;
     }
 
     void logAction(String action) {
         _gymActions.add(action);
     }
+
+
 
     public ArrayList<Person> get_getNotification() {
         return _getNotification;
@@ -295,8 +307,8 @@ public class Secretary {
             sb.append(client.toString()).append("\n");
         }
         sb.append("\nEmployees Data:\n");
-        for (Instructor employee : _gymInstructors) {
-            sb.append(employee.toString()).append("\n");
+        for (Person worker : _gymAllWorker) {
+            sb.append(worker.toString()).append("\n"); // לעדכן את ההדפסות לפי גם מזכירה
         }
         sb.append("\nSessions Data:\n");
         for (Session session : _gymSessions) {
@@ -308,6 +320,18 @@ public class Secretary {
     public ArrayList<Client> getGymClients() {
         return _gymClients;
     }
+
+    public int get_gymBalance() {
+        return _gymBalance;
+    }
+
+    void get_allWork(Person worker) {
+        _gymAllWorker.add(worker);
+    }
+
+
+
+
 
 
 }

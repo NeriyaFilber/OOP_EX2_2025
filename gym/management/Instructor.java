@@ -40,4 +40,6 @@ public class Instructor extends Person {
         return super.toString() +
                 String.format("  | Role: Instructor | Salary per Month: %d | Certified Classes: %s", _salary,getCertifiedClassesAsString());
     }
+
+
 }
