@@ -90,14 +90,14 @@ public class Main {
 
         try{
             gymSecretary.registerClientToLesson(c1,s1);
-        } catch (DuplicateClientException e) {//TODO fixed double exception
+        } catch (DuplicateClientException e) {
             System.out.println(e.getMessage());
         }
 
         gymSecretary.unregisterClient(c2);
         try {
             gymSecretary.registerClientToLesson(c2, s3);
-        } catch (ClientNotRegisteredException e) {//TODO fixed double exception
+        } catch (ClientNotRegisteredException e) {
             System.out.println(e.getMessage());
         }
 

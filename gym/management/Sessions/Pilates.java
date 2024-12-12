@@ -1,6 +1,6 @@
 package gym.management.Sessions;
 
-import gym.management.Instructor;
+import gym.customers.Instructor;
 
 public class Pilates extends Session{
     public static final int SESSION_COST = 60;

@@ -1,9 +1,8 @@
-package gym.management;
+package gym.customers;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class Person {
     private static int _COUNTER_ID = 1111;
@@ -81,6 +80,19 @@ public class Person {
                 this._age,
                 this._balance);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true; // אם זה אותו אובייקט בדיוק
+        }
+        if (obj == null || !(obj instanceof Person)) {
+            return false; // אם האובייקט null או לא מסוג Person
+        }
+        Person other = (Person) obj;
+        return this._ID == other._ID; // השוואה לפי ID
+    }
+
 
 
 

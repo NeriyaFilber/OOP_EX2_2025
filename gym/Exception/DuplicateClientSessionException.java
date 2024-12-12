@@ -8,4 +8,4 @@ public class DuplicateClientSessionException extends DuplicateClientException {
 
         return "Error: The client is already registered for this lesson";
     }
-    }
+}

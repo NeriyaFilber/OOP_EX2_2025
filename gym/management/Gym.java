@@ -1,19 +1,37 @@
 package gym.management;
 
 
-import javax.management.relation.Role;
+import gym.Exception.*;
+import gym.customers.*;
+import gym.management.Sessions.*;
+import gym.management.secretary.*;
+
 import java.util.ArrayList;
 
 public class Gym {
     private static Gym gym;
     private static Secretary _secretary;
-    private static int _salary;
-    private  String _nameGym;
-    private Gym(){
+    private static int _balance = 0;
+    private String _nameGym;
 
+    GymManagementSystem gymSystem = GymManagementSystem.getInstance();
+    private ClientManagement clientManagement;
+    private InstructorManagement instructorManagement;
+    private SessionManagement sessionManagement;
+    private NotificationManagement notificationManagement;
+    private ActionLogManager _log;
+
+
+    private Gym() {
+        this.clientManagement = new ClientManagement();
+        this.instructorManagement = new InstructorManagement();
+        this.sessionManagement = new SessionManagement();
+        this.notificationManagement = new NotificationManagement(clientManagement, sessionManagement);
+        this._log = ActionLogManager.getInstance();
     }
+
     public static Gym getInstance() {
-        if (gym == null){
+        if (gym == null) {
             gym = new Gym();
         }
         return gym;
@@ -23,38 +41,87 @@ public class Gym {
         this._nameGym = crossFit;
     }
 
-    public void setSecretary(Person p1, int i) {
-        if(_secretary == null) {
-            _secretary = new Secretary(p1, i);
+    public void setSecretary(Person p1, int salary) {
+        if (_secretary != null) {
+            // חסימת המזכירה הקודמת
+            _secretary.set_gym(null);
         }
-        int balance = p1.getBalance();
-        Secretary secretary = new Secretary(p1,i);
-        secretary.copySecretary(_secretary);
-        _secretary.clearSecretary();
-        _secretary = secretary;
-        secretary.get_allWork(p1);
-        secretary.get_secretary().set_balance(balance);
-        _salary = i;
-        secretary.logAction("A new secretary has started working at the gym: " + p1.getName());
-
+        _secretary = new Secretary(p1, salary);
+        _secretary.set_gym(this);
+        ActionLogManager.getInstance().logAction("A new secretary has started working at the gym: " + p1.getName());
     }
+
+
 
     public Secretary getSecretary() {
         return _secretary;
 
     }
 
-
     @Override
     public String toString() {
-        return "Gym Name: " + _nameGym + "\n"+
-                "Gym Secretary: ID: " + _secretary.get_secretary().getID() + " | Name: " + _secretary.get_secretary().getName() +
-                " | Gender: " + _secretary.get_secretary().getGender() + " | Birthday: " +
-                _secretary.get_secretary().getDateOfBirth() + " | Age: " +
-                _secretary.get_secretary().getAge() + " | Balance: " + _secretary.get_secretary().getBalance() +
-                " | Role: " + _secretary.get_role() + " | Salary per Month: "+
-                _salary + "\n" + "Gym Balance: " + _secretary.get_gymBalance() + "\n" + _secretary;
+        return "Gym Name: " + _nameGym + "\n" +
+                "Gym Secretary: "+ _secretary.toString() + "\n" + "Gym Balance: " + _balance + "\n" + gymInfo();
     }
 
+    protected Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
+        return clientManagement.registerClient(person);
+    }
 
+    protected Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionTypes) {
+        return instructorManagement.hireInstructor(person, salary, sessionTypes);
+    }
+
+    protected void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
+        if (clientManagement.registerClientToLesson(client, session)){
+            _balance+= session.getCost();
+        }
+    }
+
+    protected void unregisterClient(Client client) throws ClientNotRegisteredException {
+        clientManagement.unregisterClient(client);
+    }
+
+    protected void paySalaries() {
+        for (Session session: gymSystem.getSessions()){
+            _balance -= session.getInstructor().get_salary();
+            session.getInstructor().add_balance(session.get_instructor().get_salary());
+        }
+        _balance -= _secretary.get_salary();
+        _secretary.get_secretary().set_balance(_secretary.get_salary() + _secretary.get_secretary().getBalance());
+        ActionLogManager.getInstance().logAction("Salaries have been paid to all employees");
+    }
+
+    protected ArrayList<String> get_log() {
+        return _log.getActions();
+    }
+
+    protected Session addSession(SessionType sessionType, String s, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
+        return sessionManagement.addSession(sessionType, s, forumType, instructor);
+    }
+
+    protected void notify(Session s4, String s) {
+        notificationManagement.notify(s4, s);
+    }
+    protected void notify(String s, String s1) {
+        notificationManagement.notify(s,s1);
+    }
+    protected void notify(String s) {
+        notificationManagement.notify(s);
+    }
+    private String gymInfo() {
+        StringBuilder sb = new StringBuilder("Clients Data:\n");
+        for (Client client : gymSystem.getClients()) {
+            sb.append(client.toString()).append("\n");
+        }
+        sb.append("\nEmployees Data:\n");
+        for (Instructor instructor : gymSystem.getGymInstructors()) {
+            sb.append(instructor.toString()).append("\n"); // לעדכן את ההדפסות לפי גם מזכירה
+        }
+        sb.append("\nSessions Data:\n");
+        for (Session session : gymSystem.getSessions()) {
+            sb.append(session.toString()).append("\n");
+        }
+        return sb.toString();
+    }
 }

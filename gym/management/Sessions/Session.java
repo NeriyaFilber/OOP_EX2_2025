@@ -1,14 +1,13 @@
 package gym.management.Sessions;
 
 import gym.customers.Client;
-import gym.management.Instructor;
-import gym.management.Person;
+import gym.customers.Instructor;
+import gym.customers.Person;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-//TODO update date in class(constructor, data member, and session date function)
 public abstract class Session {
     private ForumType _forum;
     private Instructor _instructor;
@@ -18,7 +17,6 @@ public abstract class Session {
     public Session(String date, ForumType forumType, Instructor instructor){
         this._forum = forumType;
         this._instructor = instructor;
-//        this._date = String.valueOf(stringToLocalDateTime(date));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         this._date = LocalDateTime.parse(date, formatter);
     }
@@ -76,7 +74,7 @@ public abstract class Session {
         return _date;
     }
 
-    public ArrayList<Person> get_participant() {
+    public ArrayList<Client> get_participant() {
         return new ArrayList<>(_participant);
     }
 
@@ -104,7 +102,8 @@ public abstract class Session {
         return String.format("Date: %s | Forum: %s | Instructor: %s | Participants: %d",
                 this.sessionDateToString(),
                 this._forum,
-                this._instructor.getName(),
+                this._instructor.get_person().getName(),
                 this._participant.size());
     }
+
 }
