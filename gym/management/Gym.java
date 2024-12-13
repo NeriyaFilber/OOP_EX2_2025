@@ -119,6 +119,7 @@ public class Gym {
         for (Instructor instructor : gymSystem.getGymInstructors()) {
             sb.append(instructor.toString()).append("\n"); // לעדכן את ההדפסות לפי גם מזכירה
         }
+        sb.append(_secretary.toString()).append("\n");
         sb.append("\nSessions Data:\n");
         for (Session session : gymSystem.getSessions()) {
             sb.append(session.toString()).append("\n");
