@@ -48,6 +48,7 @@ public class Gym {
         }
         _secretary = new Secretary(p1, salary);
         _secretary.set_gym(this);
+
         ActionLogManager.getInstance().logAction("A new secretary has started working at the gym: " + p1.getName());
     }
 

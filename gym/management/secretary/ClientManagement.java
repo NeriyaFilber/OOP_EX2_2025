@@ -105,8 +105,9 @@ public class ClientManagement  {
 //                gymSystem.addToGymBalance(session.getCost());
                 ActionLogManager.getInstance().logAction("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getCost());
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
 

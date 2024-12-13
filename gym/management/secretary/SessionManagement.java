@@ -14,7 +14,7 @@ public class SessionManagement {
 
 
     public Session addSession(SessionType sessionType, String s, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
-        GymManagementSystem gymSystem = GymManagementSystem.getInstance();
+//        GymManagementSystem gymSystem = GymManagementSystem.getInstance();
 
         if (!instructor.getCertifiedClasses().contains(sessionType)){
             throw InstructorNotQualifiedException.getInstance();
