@@ -69,10 +69,11 @@ public class Person {
 //        int age = Period.between(LocalDate.parse(dateOfBirth,formatter), LocalDate.now()).getYears();
 //        return age;
 //    }
+
 private int calculateAge(String dateOfBirth) { // למחוק רק בשביל הטסט
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     LocalDate birthDate = LocalDate.parse(dateOfBirth, formatter);
-    LocalDate futureDate = LocalDate.of(2025, 1, 1); // תאריך יעד קבוע
+    LocalDate futureDate = LocalDate.of(2025, 1, 1);
     int age = Period.between(birthDate, futureDate).getYears();
     return age;
 }

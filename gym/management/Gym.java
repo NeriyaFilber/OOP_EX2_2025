@@ -120,10 +120,12 @@ public class Gym {
         }
         sb.append(_secretary.toString()).append("\n");
         sb.append("\nSessions Data:\n");
-        for (Session session : gymSystem.getSessions()) {
-            sb.append(session.toString()).append("\n");
+        for (int i = 0; i < gymSystem.getSessions().size(); i++) {
+            sb.append(gymSystem.getSessions().get(i).toString());
+            if (i < gymSystem.getSessions().size() - 1) {
+                sb.append("\n"); //
+            }
         }
-        sb.append("\n");
         return sb.toString();
     }
 }
