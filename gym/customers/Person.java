@@ -69,7 +69,7 @@ public class Person {
 //        int age = Period.between(LocalDate.parse(dateOfBirth,formatter), LocalDate.now()).getYears();
 //        return age;
 //    }
-private int calculateAge(String dateOfBirth) {
+private int calculateAge(String dateOfBirth) { // למחוק רק בשביל הטסט
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     LocalDate birthDate = LocalDate.parse(dateOfBirth, formatter);
     LocalDate futureDate = LocalDate.of(2025, 1, 1); // תאריך יעד קבוע
@@ -90,13 +90,13 @@ private int calculateAge(String dateOfBirth) {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
-            return true; // אם זה אותו אובייקט בדיוק
+            return true;
         }
         if (obj == null || !(obj instanceof Person)) {
-            return false; // אם האובייקט null או לא מסוג Person
+            return false;
         }
         Person other = (Person) obj;
-        return this._ID == other._ID; // השוואה לפי ID
+        return this._ID == other._ID;
     }
 
 

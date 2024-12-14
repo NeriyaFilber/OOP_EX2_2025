@@ -55,12 +55,9 @@ public class NotificationManagement {
     }
 
     private String formatDate(String date) {
-        // Formatter for the input date format
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        // Formatter for the desired output format
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // Parse the input date and format it to the desired format
         LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
         return parsedDate.format(outputFormatter);
     }

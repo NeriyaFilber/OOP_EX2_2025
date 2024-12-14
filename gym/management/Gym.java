@@ -43,7 +43,6 @@ public class Gym {
 
     public void setSecretary(Person p1, int salary) {
         if (_secretary != null) {
-            // חסימת המזכירה הקודמת
             _secretary.set_gym(null);
         }
         _secretary = new Secretary(p1, salary);
