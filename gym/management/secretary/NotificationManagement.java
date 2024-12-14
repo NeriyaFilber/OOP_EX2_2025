@@ -3,6 +3,7 @@ package gym.management.secretary;
 import gym.customers.Client;
 import gym.management.Sessions.Session;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class NotificationManagement {
@@ -30,7 +31,7 @@ public class NotificationManagement {
 
     public void notify(String s, String s1) {
         String registered_session = "A message was sent to everyone registered for a session on ";
-        String message = registered_session + s + " : " + s1; //TODO correct s to format YYYY-MM-DD
+        String message = registered_session + formatDate(s) + " : " + s1; //TODO correct s to format YYYY-MM-DD
         ActionLogManager.getInstance().logAction(message);
 
 
@@ -53,5 +54,15 @@ public class NotificationManagement {
         }
     }
 
+    private String formatDate(String date) {
+        // Formatter for the input date format
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // Formatter for the desired output format
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Parse the input date and format it to the desired format
+        LocalDate parsedDate = LocalDate.parse(date, inputFormatter);
+        return parsedDate.format(outputFormatter);
+    }
 
 }

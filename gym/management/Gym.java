@@ -111,7 +111,7 @@ public class Gym {
         notificationManagement.notify(s);
     }
     private String gymInfo() {
-        StringBuilder sb = new StringBuilder("Clients Data:\n");
+        StringBuilder sb = new StringBuilder("\nClients Data:\n");
         for (Client client : gymSystem.getClients()) {
             sb.append(client.toString()).append("\n");
         }
@@ -124,6 +124,7 @@ public class Gym {
         for (Session session : gymSystem.getSessions()) {
             sb.append(session.toString()).append("\n");
         }
+        sb.append("\n");
         return sb.toString();
     }
 }

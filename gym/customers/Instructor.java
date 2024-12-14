@@ -30,7 +30,7 @@ public class Instructor {
     }
     @Override
     public String toString() {
-        return  _person.toString() + String.format("  | Role: Instructor | Salary per Hour: %d | Certified Classes: %s", _salary , getCertifiedClassesAsString());
+        return  _person.toString() + String.format(" | Role: Instructor | Salary per Hour: %d | Certified Classes: %s", _salary , getCertifiedClassesAsString());
     }
 
     public Person get_person() {

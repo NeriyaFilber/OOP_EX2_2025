@@ -26,6 +26,6 @@ public class MachinePilates extends Session{
 
     @Override
     public String toString() {
-        return String.format("Session Type: %s | ", SessionType.Ninja) + super.toString() + "/" + MAX_PARTICIPANT;
+        return String.format("Session Type: %s | ", SessionType.MachinePilates) + super.toString() + "/" + MAX_PARTICIPANT;
     }
 }

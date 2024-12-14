@@ -64,12 +64,18 @@ public class Person {
         return _age;
     }
 
-    private int calculateAge(String dateOfBirth){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        int age = Period.between(LocalDate.parse(dateOfBirth,formatter), LocalDate.now()).getYears();
-        return age;
-    }
-
+//    private int calculateAge(String dateOfBirth){
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        int age = Period.between(LocalDate.parse(dateOfBirth,formatter), LocalDate.now()).getYears();
+//        return age;
+//    }
+private int calculateAge(String dateOfBirth) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    LocalDate birthDate = LocalDate.parse(dateOfBirth, formatter);
+    LocalDate futureDate = LocalDate.of(2025, 1, 1); // תאריך יעד קבוע
+    int age = Period.between(birthDate, futureDate).getYears();
+    return age;
+}
     @Override
     public String toString() {
         return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d",
