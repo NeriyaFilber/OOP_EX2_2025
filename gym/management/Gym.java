@@ -1,6 +1,7 @@
 package gym.management;
 
 
+import gym.Balance;
 import gym.Exception.*;
 import gym.customers.*;
 import gym.management.Sessions.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class Gym {
     private static Gym gym;
     private static Secretary _secretary;
-    private static int _balance = 0;
+    private static Balance _balance = new Balance(0);
     private String _nameGym;
 
     GymManagementSystem gymSystem = GymManagementSystem.getInstance();
@@ -74,7 +75,7 @@ public class Gym {
 
     protected void registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
         if (clientManagement.registerClientToLesson(client, session)){
-            _balance+= session.getCost();
+            _balance.add( session.getCost());
         }
     }
 
@@ -84,11 +85,11 @@ public class Gym {
 
     protected void paySalaries() {
         for (Session session: gymSystem.getSessions()){
-            _balance -= session.getInstructor().get_salary();
-            session.getInstructor().add_balance(session.get_instructor().get_salary());
+            _balance.subtractBalance(session.getInstructor().get_salary());
+            session.getInstructor().addBalance(session.get_instructor().get_salary());
         }
-        _balance -= _secretary.get_salary();
-        _secretary.get_secretary().set_balance(_secretary.get_salary() + _secretary.get_secretary().getBalance());
+        _balance.subtractBalance( _secretary.get_salary());
+        _secretary.get_secretary().set_balance(_secretary.get_salary() + _secretary.get_secretary().getBalance().get_balance());
         ActionLogManager.getInstance().logAction("Salaries have been paid to all employees");
     }
 

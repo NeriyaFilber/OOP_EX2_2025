@@ -102,7 +102,7 @@ public abstract class Session {
         return String.format("Date: %s | Forum: %s | Instructor: %s | Participants: %d",
                 this.sessionDateToString(),
                 this._forum,
-                this._instructor.get_person().getName(),
+                this._instructor.getName(),
                 this._participant.size());
     }
 

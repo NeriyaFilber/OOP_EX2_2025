@@ -2,16 +2,18 @@ package gym.customers;
 
 import java.util.ArrayList;
 
-public class Client {
+public class Client extends Person  {
 
     private ArrayList<String> _notifications = new ArrayList<>();
-    private Person person;
 
-
+    public Client(String name, int balance, Gender gender, String dateOfBirth) {
+        super(name, balance, gender, dateOfBirth);
+    }
 
     public Client(Person person) {
-        this.person = person;
+        super(person);
     }
+
 
     public String getNotifications() {
         if (_notifications.isEmpty()) {
@@ -26,17 +28,8 @@ public class Client {
         ans.append("]");
         return ans.toString();
     }
-    public void subtractBalance(int i){
-        person.set_balance(person.getBalance()-i);
-    }
 
-    public Person getPerson() {
-        return person;
-    }
 
-    public String getName(){
-        return person.getName();
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -48,14 +41,10 @@ public class Client {
         }
         Client other = (Client) obj;
         // השווה את שדה ה-ID של הלקוח
-        return this.person.getID() == other.person.getID(); // נניח ש-ID הוא שדה מזהה ייחודי
+        return this.getID() == other.getID(); // נניח ש-ID הוא שדה מזהה ייחודי
     }
 
 
-    @Override
-    public String toString() {
-        return person.toString();
-    }
     public void addNotification(String notification) {
         _notifications.add(notification);
     }

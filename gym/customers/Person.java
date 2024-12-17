@@ -1,5 +1,7 @@
 package gym.customers;
 
+import gym.Balance;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Person {
     private static int _COUNTER_ID = 1111;
     private String _name;
-    private int _balance;
+    private Balance _balance;
     private Gender _gender;
     private String _dateOfBirth;
     private int _ID;
@@ -18,13 +20,14 @@ public class Person {
 
     public Person(String name, int balance, Gender gender, String dateOfBirth) {
         this._name = name;
-        this._balance = balance;
+        this._balance = new Balance(balance);
         this._gender = gender;
         this._dateOfBirth = dateOfBirth;
         this._age = calculateAge(dateOfBirth);
         this._ID = _COUNTER_ID;
         _COUNTER_ID++;
     }
+
 
     public Person(Person person){
         this._name = person.getName();
@@ -36,15 +39,22 @@ public class Person {
     }
 
     public void set_balance(int balance) {
-        this._balance = balance;
+        this._balance = new Balance(balance);
     }
 
+    public void addBalance(int balance) {
+        _balance.add(balance);
+    }
+
+    public void subtractBalance(int i){
+        _balance.subtractBalance(i);
+    }
 
     public String getName() {
         return _name;
     }
 
-    public int getBalance() {
+    public Balance getBalance() {
         return _balance;
     }
 
@@ -79,7 +89,7 @@ private int calculateAge(String dateOfBirth) { // למחוק רק בשביל ה�
 }
     @Override
     public String toString() {
-        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d",
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %s",
                 this._ID,
                 this._name,
                 this._gender,

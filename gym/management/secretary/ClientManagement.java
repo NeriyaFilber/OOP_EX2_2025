@@ -44,7 +44,7 @@ public class ClientManagement  {
             isValid = false;
         }
 
-        if (client.getPerson().getBalance() < session.getCost()) {
+        if (client.getBalance().get_balance() < session.getCost()) {
             ActionLogManager.getInstance().logAction(("Failed registration: Client doesn't have enough balance"));
             isValid = false;
         }
@@ -61,7 +61,7 @@ public class ClientManagement  {
         boolean isValid = true;
 
         if (forumType == ForumType.Seniors) {
-            if (client.getPerson().getAge() < 65) {
+            if (client.getAge() < 65) {
                 ActionLogManager.getInstance().logAction(("Failed registration: Client doesn't meet the age requirements for this session (Seniors)"));
                 isValid = false;
             }
@@ -70,13 +70,13 @@ public class ClientManagement  {
                 case All:
                     break;
                 case Female:
-                    if (client.getPerson().getGender() != Gender.Female) {
+                    if (client.getGender() != Gender.Female) {
                         ActionLogManager.getInstance().logAction(("Failed registration: Client's gender doesn't match the session's gender requirements"));
                         isValid = false;
                     }
                     break;
                 case Male:
-                    if (client.getPerson().getGender() != Gender.Male) {
+                    if (client.getGender() != Gender.Male) {
                         ActionLogManager.getInstance().logAction(("Failed registration: Client's gender doesn't match the session's gender requirements"));
                         isValid = false;
                     }

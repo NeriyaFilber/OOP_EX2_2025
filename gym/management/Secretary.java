@@ -82,7 +82,7 @@ public class Secretary {
     @Override
     public String toString() {
         return String.format(
-                "ID: %s | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: Secretary | Salary per Month: %d",
+                "ID: %s | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %s | Role: Secretary | Salary per Month: %d",
                 _secretary.getID(),
                 _secretary.getName(),
                 _secretary.getGender(),
