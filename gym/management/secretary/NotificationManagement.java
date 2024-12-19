@@ -8,15 +8,12 @@ import java.time.format.DateTimeFormatter;
 
 public class NotificationManagement {
 
-    private ClientManagement clientManagement;
-    private SessionManagement sessionManagement;
+
 
     GymManagementSystem gymSystem = GymManagementSystem.getInstance();
 
 
-    public NotificationManagement(ClientManagement clientManagement, SessionManagement sessionManagement) {
-        this.clientManagement = clientManagement;
-        this.sessionManagement = sessionManagement;
+    public NotificationManagement() {
     }
 
     public void notify(Session s4, String s) {
