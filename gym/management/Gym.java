@@ -1,7 +1,6 @@
 package gym.management;
 
 
-import gym.Balance;
 import gym.Exception.*;
 import gym.customers.*;
 import gym.management.Sessions.*;

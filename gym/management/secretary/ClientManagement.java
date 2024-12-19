@@ -17,7 +17,7 @@ public class ClientManagement  {
         }
         Client tempClient = new Client(person);
         if (gymSystem.getClients().contains(tempClient)){
-            throw DuplicateClientException.getInstance(false);
+            throw new DuplicateClientException("Error: The client is already registered");
         }
         gymSystem.addClient(tempClient);
         ActionLogManager.getInstance().logAction("Registered new client: " + tempClient.getName());
@@ -26,7 +26,7 @@ public class ClientManagement  {
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException {
         if(!gymSystem.getClients().contains(client)){
-            throw ClientNotRegisteredException.getInstance(false);
+            throw new ClientNotRegisteredException("Error: Registration is required before attempting to unregister");
         }
         // נשים לב שהיתרות נשארות אותו דבר במידה ונרשם שוב (או ניהיה מדריך.מזכירה)
         gymSystem.removeClient(client);
@@ -93,10 +93,10 @@ public class ClientManagement  {
 
     public boolean registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
         if (!gymSystem.getClients().contains(client)) {
-            throw ClientNotRegisteredSessionException.getInstance(true);
+            throw new ClientNotRegisteredException("Error: The client is not registered with the gym and cannot enroll in lessons");
         }
         if (session.get_participant().contains(client)) {
-            throw DuplicateClientException.getInstance(true);
+            throw new DuplicateClientException("Error: The client is already registered for this lesson");
         }
 
         if (checkValidation(session, client)) {

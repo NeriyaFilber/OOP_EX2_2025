@@ -20,7 +20,6 @@ public class NotificationManagement {
     }
 
     public void notify(Session s4, String s) {
-
         String registered_session = new String("A message was sent to everyone registered for session ");
         String message = registered_session + s4.getType()+ " on " + s4.getDate() + " : "  + s;
         ActionLogManager.getInstance().logAction(message);
@@ -31,9 +30,8 @@ public class NotificationManagement {
 
     public void notify(String s, String s1) {
         String registered_session = "A message was sent to everyone registered for a session on ";
-        String message = registered_session + formatDate(s) + " : " + s1; //TODO correct s to format YYYY-MM-DD
+        String message = registered_session + formatDate(s) + " : " + s1;
         ActionLogManager.getInstance().logAction(message);
-
 
         for (Session session :gymSystem.getSessions() ) {
             if (session.sessionDateYear().equals(s)) {

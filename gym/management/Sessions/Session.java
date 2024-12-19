@@ -2,8 +2,6 @@ package gym.management.Sessions;
 
 import gym.customers.Client;
 import gym.customers.Instructor;
-import gym.customers.Person;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
