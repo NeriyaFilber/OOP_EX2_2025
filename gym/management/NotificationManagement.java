@@ -1,5 +1,6 @@
 package gym.management;
 
+import com.sun.nio.sctp.Notification;
 import gym.customers.Client;
 import gym.management.Sessions.Session;
 
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * This class uses the Singleton design pattern to ensure that only one instance is created.
  * It logs all notification-related actions and interacts with the GymManagementSystem to access clients and sessions.
  */
-class NotificationManagement {
+class NotificationManagement implements Sender {
 
     /**
      * Singleton instance of the NotificationManagement class.
@@ -36,7 +37,7 @@ class NotificationManagement {
      * @param session The session to notify participants about.
      * @param message The notification message.
      */
-    protected void notify(Session session, String message) {
+    public void notify(Session session, String message) {
         String registeredSession = "A message was sent to everyone registered for session ";
         String fullMessage = registeredSession + session.getType() + " on " + session.getDate() + " : " + message;
         ActionLogManager.getInstance().logAction(fullMessage);
@@ -53,7 +54,7 @@ class NotificationManagement {
      * @param date    The date of the sessions (in "dd-MM-yyyy" format).
      * @param message The notification message.
      */
-    protected void notify(String date, String message) {
+    public void notify(String date, String message) {
         String registeredSession = "A message was sent to everyone registered for a session on ";
         String formattedDate = formatDate(date);
         String fullMessage = registeredSession + formattedDate + " : " + message;
@@ -74,7 +75,7 @@ class NotificationManagement {
      *
      * @param message The notification message.
      */
-    protected void notify(String message) {
+    public void notify(String message) {
         String allClientsMessage = "A message was sent to all gym clients: ";
         ActionLogManager.getInstance().logAction(allClientsMessage + message);
 
