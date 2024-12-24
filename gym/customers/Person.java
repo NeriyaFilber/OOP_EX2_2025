@@ -168,18 +168,11 @@ public class Person {
      * @param dateOfBirth the date of birth in the format "dd-MM-yyyy"
      * @return the calculated age
      */
-    private int calculateAge(String dateOfBirth) { // Temporary method for testing purposes
+        private int calculateAge(String dateOfBirth){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate birthDate = LocalDate.parse(dateOfBirth, formatter);
-        LocalDate futureDate = LocalDate.of(2025, 1, 1);
-        int age = Period.between(birthDate, futureDate).getYears();
+        int age = Period.between(LocalDate.parse(dateOfBirth,formatter), LocalDate.now()).getYears();
         return age;
-    }
-    //    private int calculateAge(String dateOfBirth){
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//        int age = Period.between(LocalDate.parse(dateOfBirth,formatter), LocalDate.now()).getYears();
-//        return age;
-//}
+}
 
     /**
      * Returns a string representation of the individual's details.

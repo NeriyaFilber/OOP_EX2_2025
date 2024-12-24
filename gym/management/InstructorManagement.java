@@ -1,6 +1,5 @@
-package gym.management.secretary;
+package gym.management;
 
-import gym.customers.Client;
 import gym.customers.Instructor;
 import gym.customers.Person;
 import gym.management.Sessions.SessionType;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  * The {@code InstructorManagement} class handles the hiring and registration of instructors in the gym.
  * It provides functionality to create new instructors and add them to the gym's system.
  */
-public class InstructorManagement {
+class InstructorManagement {
 
     /**
      * Hires a new instructor for the gym.
@@ -23,7 +22,7 @@ public class InstructorManagement {
      * @param sessionTypes an {@code ArrayList<SessionType>} containing the session types the instructor can teach.
      * @return the newly created {@code Instructor} object.
      */
-    public Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionTypes) {
+    protected Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionTypes) {
         GymManagementSystem gymSystem = GymManagementSystem.getInstance();
 
         Instructor newInstructor = new Instructor(person, salary, sessionTypes);

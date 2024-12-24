@@ -10,12 +10,13 @@ import java.util.ArrayList;
  * Represents a client of the gym, inheriting personal details and balance functionality from the Person class.
  * Clients have additional functionality to manage their notifications.
  */
-public class Client extends Person {
+public class Client extends Person implements Observer {
 
     /**
      * List of notifications associated with the client.
      */
     private ArrayList<String> _notifications = new ArrayList<>();
+    private Object _sender;
 
     /**
      * Constructs a new Client object with the specified details.
@@ -34,8 +35,9 @@ public class Client extends Person {
      *
      * @param person the Person object to copy details from
      */
-    public Client(Person person) {
+    public Client(Person person, Object sender) {
         super(person);
+        this._sender = sender;
     }
 
     /**
@@ -81,7 +83,10 @@ public class Client extends Person {
      *
      * @param notification the notification to add
      */
-    public void addNotification(String notification) {
-        _notifications.add(notification);
+    @Override
+    public void addNotification(String notification, Object sender) {
+        if (sender.equals(_sender)) {
+            _notifications.add(notification);
+        }
     }
 }

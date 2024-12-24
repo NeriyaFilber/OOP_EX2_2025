@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * This role is responsible for managing client registrations, hiring instructors, managing sessions,
  * and handling financial aspects such as paying salaries and overseeing gym activities through logged actions.
  */
-public class Secretary {
+public class Secretary implements Sender {
 
     /**
      * Represents the personal details of the secretary.
@@ -30,7 +30,7 @@ public class Secretary {
     /**
      * The gym where the secretary is employed.
      */
-    private Gym _gym;
+    private WorkManagement _gym;
 
     /**
      * Constructs a new {@code Secretary} with the specified personal details and salary.
@@ -129,16 +129,18 @@ public class Secretary {
      * @param s4 the {@code Session} associated with the notification.
      * @param s  the notification message.
      */
+    @Override
     public void notify(Session s4, String s) {
         _gym.notify(s4, s);
     }
 
     /**
-     * Sends a notification with a title and message.
+     * Sends a notification to all sessions in specific date and message.
      *
-     * @param s  the title of the notification.
+     * @param s  the date of the notification.
      * @param s1 the message of the notification.
      */
+    @Override
     public void notify(String s, String s1) {
         _gym.notify(s, s1);
     }
@@ -148,6 +150,7 @@ public class Secretary {
      *
      * @param s the notification message.
      */
+    @Override
     public void notify(String s) {
         _gym.notify(s);
     }

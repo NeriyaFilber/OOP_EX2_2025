@@ -1,4 +1,4 @@
-package gym.management.secretary;
+package gym.management;
 
 import gym.Exception.*;
 import gym.customers.*;
@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
  * It provides functionality to register/unregister clients, as well as ensuring that
  * client registrations for lessons meet the necessary criteria.
  */
-public class ClientManagement  {
+class ClientManagement  {
 
     // Instance of the GymManagementSystem for interacting with the system
-    GymManagementSystem gymSystem = GymManagementSystem.getInstance();
+    private GymManagementSystem gymSystem = GymManagementSystem.getInstance();
+    private NotificationManagement gymNotification = NotificationManagement.getInstance();
 
     /**
      * Registers a new client with the system.
@@ -27,11 +28,11 @@ public class ClientManagement  {
      * @throws InvalidAgeException if the client is under 18 years old.
      * @throws DuplicateClientException if the client is already registered.
      */
-    public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
+    protected Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         if(person.getAge()<18){
             throw InvalidAgeException.getInstance();
         }
-        Client tempClient = new Client(person);
+        Client tempClient = new Client(person, gymNotification);
         if (gymSystem.getClients().contains(tempClient)){
             throw new DuplicateClientException("Error: The client is already registered");
         }
@@ -46,7 +47,7 @@ public class ClientManagement  {
      * @param client The client to unregister.
      * @throws ClientNotRegisteredException if the client is not registered in the system.
      */
-    public void unregisterClient(Client client) throws ClientNotRegisteredException {
+    protected void unregisterClient(Client client) throws ClientNotRegisteredException {
         if(!gymSystem.getClients().contains(client)){
             throw new ClientNotRegisteredException("Error: Registration is required before attempting to unregister");
         }
@@ -137,7 +138,7 @@ public class ClientManagement  {
      * @throws ClientNotRegisteredException if the client is not registered with the gym.
      * @throws DuplicateClientException if the client is already registered for the session.
      */
-    public boolean registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
+    protected boolean registerClientToLesson(Client client, Session session) throws ClientNotRegisteredException, DuplicateClientException {
         if (!gymSystem.getClients().contains(client)) {
             throw new ClientNotRegisteredException("Error: The client is not registered with the gym and cannot enroll in lessons");
         }

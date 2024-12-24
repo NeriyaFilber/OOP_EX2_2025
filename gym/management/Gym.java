@@ -3,7 +3,6 @@ package gym.management;
 import gym.Exception.*;
 import gym.customers.*;
 import gym.management.Sessions.*;
-import gym.management.secretary.*;
 
 import java.util.ArrayList;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
  * It implements various management modules, including client, instructor, session, and notification management.
  * The class employs the Singleton design pattern to ensure that only one instance of the gym exists within the application.
  */
-public class Gym {
+public class Gym extends WorkManagement{
     /**
      * The singleton instance of the {@code Gym}.
      */
@@ -71,7 +70,7 @@ public class Gym {
         this.clientManagement = new ClientManagement();
         this.instructorManagement = new InstructorManagement();
         this.sessionManagement = new SessionManagement();
-        this.notificationManagement = new NotificationManagement();
+        this.notificationManagement = NotificationManagement.getInstance();
         this._log = ActionLogManager.getInstance();
     }
 
@@ -142,6 +141,7 @@ public class Gym {
      * @throws InvalidAgeException      if the client's age is invalid.
      * @throws DuplicateClientException if the client already exists in the system.
      */
+
     protected Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         return clientManagement.registerClient(person);
     }

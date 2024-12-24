@@ -1,4 +1,4 @@
-package gym.management.secretary;
+package gym.management;
 
 import gym.Exception.InstructorNotQualifiedException;
 import gym.customers.Instructor;
@@ -11,11 +11,11 @@ import gym.management.Sessions.SessionType;
  * The {@code SessionManagement} class handles the creation and management of gym sessions.
  * It enables the addition of new sessions while ensuring that instructors are qualified for the session types.
  */
-public class SessionManagement {
+class SessionManagement {
     /**
      * An instance of the {@code GymManagementSystem} used to manage gym data.
      */
-    GymManagementSystem gymSystem = GymManagementSystem.getInstance();
+    private GymManagementSystem gymSystem = GymManagementSystem.getInstance();
 
     /**
      * Adds a new session to the gym's system.
@@ -29,9 +29,12 @@ public class SessionManagement {
      * @return the newly created {@code Session} object.
      * @throws InstructorNotQualifiedException if the instructor is not certified to teach the given session type.
      */
-    public Session addSession(SessionType sessionType, String s, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
+    protected Session addSession(SessionType sessionType, String s, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
+        if(!gymSystem.getGymInstructors().contains(instructor)) {
+            throw new InstructorNotQualifiedException("Error: Instructor is not work in this gym.");
+        }
         if (!instructor.getCertifiedClasses().contains(sessionType)) {
-            throw InstructorNotQualifiedException.getInstance();
+            throw new InstructorNotQualifiedException("Error: Instructor is not qualified to conduct this session type.");
         }
         Session session = SessionFactory.createSession(sessionType, s, forumType, instructor);
         gymSystem.addSession(session);

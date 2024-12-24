@@ -1,4 +1,4 @@
-package gym.management.secretary;
+package gym.management;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * of the action log manager exists throughout the application.
  * </p>
  */
-public class ActionLogManager {
+class ActionLogManager {
 
     // Static instance for the Singleton design pattern
     private static ActionLogManager instance;
@@ -32,7 +32,7 @@ public class ActionLogManager {
      *
      * @return the singleton instance of the ActionLogManager
      */
-    public static ActionLogManager getInstance() {
+    protected static ActionLogManager getInstance() {
         if (instance == null) {
             instance = new ActionLogManager();
         }
@@ -44,7 +44,7 @@ public class ActionLogManager {
      *
      * @param action the action to be logged
      */
-    public void logAction(String action) {
+    protected void logAction(String action) {
         actions.add(action);
     }
 
@@ -54,7 +54,7 @@ public class ActionLogManager {
      *
      * @return a list of all logged actions
      */
-    public ArrayList<String> getActions() {
+    protected ArrayList<String> getActions() {
         return new ArrayList<>(actions);
     }
 }

@@ -1,4 +1,4 @@
-package gym.management.secretary;
+package gym.management;
 
 import gym.customers.Client;
 import gym.customers.Instructor;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * handling and organizing clients, instructors, and sessions.
  * This class implements the Singleton design pattern, ensuring only one instance exists throughout the application.
  */
-public class GymManagementSystem {
+class GymManagementSystem {
 
     /**
      * The single instance of the GymManagementSystem (Singleton).
@@ -50,7 +50,7 @@ public class GymManagementSystem {
      *
      * @return the single instance of the GymManagementSystem.
      */
-    public static GymManagementSystem getInstance() {
+    protected static GymManagementSystem getInstance() {
         if (instance == null) {
             instance = new GymManagementSystem();
         }
@@ -62,7 +62,7 @@ public class GymManagementSystem {
      *
      * @param client the {@code Client} to add.
      */
-    public void addClient(Client client) {
+    protected void addClient(Client client) {
         gymClients.add(client);
     }
 
@@ -71,7 +71,7 @@ public class GymManagementSystem {
      *
      * @param instructor the {@code Instructor} to add.
      */
-    public void addInstructor(Instructor instructor) {
+    protected void addInstructor(Instructor instructor) {
         gymInstructors.add(instructor);
     }
 
@@ -80,7 +80,7 @@ public class GymManagementSystem {
      *
      * @param session the {@code Session} to add.
      */
-    public void addSession(Session session) {
+    protected void addSession(Session session) {
         gymSessions.add(session);
     }
 
@@ -89,7 +89,7 @@ public class GymManagementSystem {
      *
      * @return an {@code ArrayList<Client>} containing all registered clients.
      */
-    public ArrayList<Client> getClients() {
+    protected ArrayList<Client> getClients() {
         return gymClients;
     }
 
@@ -98,7 +98,7 @@ public class GymManagementSystem {
      *
      * @return an {@code ArrayList<Session>} containing all available sessions.
      */
-    public ArrayList<Session> getSessions() {
+    protected ArrayList<Session> getSessions() {
         return gymSessions;
     }
 
@@ -107,7 +107,7 @@ public class GymManagementSystem {
      *
      * @param client the {@code Client} to remove.
      */
-    public void removeClient(Client client) {
+    protected void removeClient(Client client) {
         gymClients.remove(client);
     }
 
@@ -116,7 +116,7 @@ public class GymManagementSystem {
      *
      * @return an {@code ArrayList<Instructor>} containing all instructors.
      */
-    public ArrayList<Instructor> getGymInstructors() {
+    protected ArrayList<Instructor> getGymInstructors() {
         return gymInstructors;
     }
 
@@ -125,7 +125,7 @@ public class GymManagementSystem {
      *
      * @param instructor the {@code Instructor} to remove.
      */
-    public void removeInstructor(Instructor instructor) {
+    protected void removeInstructor(Instructor instructor) {
         gymInstructors.remove(instructor);
     }
 
@@ -134,7 +134,7 @@ public class GymManagementSystem {
      *
      * @param session the {@code Session} to remove.
      */
-    public void removeSession(Session session) {
+    protected void removeSession(Session session) {
         gymSessions.remove(session);
     }
 }
